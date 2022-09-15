@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 const axios =require('axios');
 const { response } = require("express");
 const mongoose= require("mongoose");
+const equipos= require ("./Equipos.js")
 require('dotenv').config({path:'./.env'});
 
 const app = express()
@@ -54,6 +55,7 @@ async function run() {
         console.log(clasificacionE,nombreEquipo,pjE,golesE,eE,pE,puntosE);
       })
     });
+    
   }
 run();
 
