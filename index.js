@@ -37,6 +37,7 @@ console.log('http://localhost:3000  ',{puerto})
 
 
 async function run() {
+  try{
     const url = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones";
     await axios(url).then((response) => {
       const html_data = response.data;
@@ -50,12 +51,12 @@ async function run() {
       var eE= $(this).find("td:nth-child(5)").text();
       var pE= $(this).find("td:nth-child(6)").text();
       var puntosE= $(this).find("td:nth-child(10)").text();
+      var escudoE =$(this).find('a > img').attr('data-src');
 
       
-        console.log(clasificacionE,nombreEquipo,pjE,golesE,eE,pE,puntosE);
       })
     });
-    
+  }
   }
 run();
 
