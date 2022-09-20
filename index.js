@@ -72,16 +72,20 @@ async function run() {
         }
         console.log(datosEquipos);
 
+       
         try{
-          await Equipo.findOneAndUpdate({clasificacion:clasificacionE},datosEquipos,{upsert:true});
-        }
-        catch(error){
-          console.error(error); }
+          await Equipo.findOneAndUpdate({nombre: nombreE}, equiposData, {upsert: true});
+          }
+          catch(error){
+              console.error(error); }
       })
 
-    }).catch(err=>console.log(err))
-  }catch(err){console.log(err)}
-
+  }).catch(err => console.log(err))
+} catch (err) {
+  console.log(err)
+}
 
 }
+
+
 run();

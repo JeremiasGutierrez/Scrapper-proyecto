@@ -12,4 +12,14 @@ const equiposSchema = new mongoose.Schema({
     escudo:String
 
 })
-module.exports = mongoose.model("Equipo",equiposSchema)
+module.exports = mongoose.model("Equipo",equiposSchema)({
+    clasificacionE: Number,
+    nombreE: String,
+    pjE:Number,
+    golesE:Number,
+    eE:Number,
+    pE:Number,
+    puntosE:Number
+
+})
+module.exports = mongoose.model("Equipos",equiposSchema)
