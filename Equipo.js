@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
 
-const equipos = new mongoose.Schema({
-    clasificacionE: Number,
-    nombreE: String,
-    pjE:Number,
-    golesE:Number,
-    eE:Number,
-    pE:Number,
-    puntosE:Number
+const equiposSchema = new mongoose.Schema({
+    clasificacion: Number,
+    nombre: String,
+    pj:Number,
+    goles:Number,
+    e:Number,
+    p:Number,
+    puntos:Number,
+    escudo:String
 
 })
-mongoose.model("Equipos",equipos)
+module.exports = mongoose.model("Equipo",equiposSchema)

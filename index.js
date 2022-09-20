@@ -4,8 +4,13 @@ const exphbs = require('express-handlebars');
 const axios =require('axios');
 const { response } = require("express");
 const mongoose= require("mongoose");
-const equipos= require ("./Equipos.js")
+const Equipo= require ("./Equipo");
 require('dotenv').config({path:'./.env'});
+
+
+
+
+
 
 const app = express()
 mongoose.connect(process.env.URI,function(error){
@@ -37,12 +42,13 @@ console.log('http://localhost:3000  ',{puerto})
 
 
 async function run() {
+  try{
     const url = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones";
     await axios(url).then((response) => {
       const html_data = response.data;
       const $ = cheerio.load(html_data);
       $ ("#p_score_contenido_TorneoTabs_collapse3 > div > table > tbody").find('tr').each(async function(i){
-        
+    
       var clasificacionE= $(this).find("td:nth-child(1)").text();
       var nombreEquipo= $(this).find("span.d-md-none").text();
       var pjE= $(this).find("td:nth-child(3)").text();
@@ -50,12 +56,32 @@ async function run() {
       var eE= $(this).find("td:nth-child(5)").text();
       var pE= $(this).find("td:nth-child(6)").text();
       var puntosE= $(this).find("td:nth-child(10)").text();
-
-      
-        console.log(clasificacionE,nombreEquipo,pjE,golesE,eE,pE,puntosE);
-      })
-    });
+      var escudoE= $(this).find('a > img').attr('data-src');
     
-  }
-run();
 
+        var datosEquipos={
+          clasificacion: clasificacionE,
+          nombre: nombreEquipo,
+          pj: pjE,
+          goles: golesE,
+          e: eE,
+          p: pE,
+          puntos: puntosE,
+          escudo:escudoE
+
+        }
+        console.log(datosEquipos);
+
+        try{
+          await Equipo.findOneAndUpdate({clasificacion:clasificacionE},datosEquipos,{upsert:true});
+        }
+        catch(error){
+          console.error(error); }
+      })
+
+    }).catch(err=>console.log(err))
+  }catch(err){console.log(err)}
+
+
+}
+run();
