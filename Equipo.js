@@ -8,7 +8,8 @@ const equiposSchema = new mongoose.Schema({
     golesE:Number,
     eE:Number,
     pE:Number,
-    puntosE:Number
+    puntosE:Number,
+    escudoE:String
 
 })
 module.exports = mongoose.model("Equipos",equiposSchema)

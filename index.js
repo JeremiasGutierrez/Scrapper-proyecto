@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars');
 const axios =require('axios');
 const { response } = require("express");
 const mongoose= require("mongoose");
-const equipos= require ("./Equipos.js")
+const equipos= require ("./Equipo");
 require('dotenv').config({path:'./.env'});
 
 const app = express()
@@ -43,7 +43,7 @@ async function run() {
       const html_data = response.data;
       const $ = cheerio.load(html_data);
       $ ("#p_score_contenido_TorneoTabs_collapse3 > div > table > tbody").find('tr').each(async function(i){
-        
+
       var clasificacionE= $(this).find("td:nth-child(1)").text();
       var nombreEquipo= $(this).find("span.d-md-none").text();
       var pjE= $(this).find("td:nth-child(3)").text();
@@ -52,11 +52,23 @@ async function run() {
       var pE= $(this).find("td:nth-child(6)").text();
       var puntosE= $(this).find("td:nth-child(10)").text();
       var escudoE =$(this).find('a > img').attr('data-src');
-
-      
+    
+    const obj = {
+      nombreEquipo:nombreEquipo,
+      clasificacionE:clasificacionE,
+      pjE:pjE,
+      golesE:golesE,
+      eE,
+      pE,
+      puntosE,
+      escudoE
+    }
+          console.log(obj);
       })
     });
-  }
+
+  }catch(err){ 
+    console.log(err)}
   }
 run();
 
